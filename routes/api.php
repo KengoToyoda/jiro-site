@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Shop;
+use App\Myjiro;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,15 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/myjiro', function(Request $request){
+    $myjiros = App\Myjiro::all();
+    return response()->json(['myjiros' => $myjiros]);
 });
+
+// Route::get('/myjiro','ShopController@getMyjiros');
+
+Route::post('/myjiro','ShopController@storeMyjiros');
+
+
+
+

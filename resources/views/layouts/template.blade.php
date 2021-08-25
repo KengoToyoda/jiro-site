@@ -12,6 +12,8 @@
         <!-- Reset.css読み込み -->
         <!--<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">-->
         <link href="{{ asset('css/common.css') }}" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         
         <!--style.scssのコンパイル先-->
         <link href="{{ asset('sass/style.css') }}" rel="stylesheet" >
@@ -20,6 +22,8 @@
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
         
         <!-- Js -->
+            <script src="{{ asset('js/app.js') }}" defer></script>
+
 
     </head>
     <body>
@@ -31,8 +35,6 @@
             </section>
             @yield('footer')
         </div>
-        
-    <script src="{{ asset('js/app.js') }}" ></script>
     </body>
 </html>
 

@@ -9,11 +9,8 @@
     @section('content')
         <!-- pc left lock start-->
         <div class="">
-            <h1>Myjiro</h1>
             <div id="myjiro"></div>
         </div>
-    
-        
     @endsection
     
     @include('layouts.footer')

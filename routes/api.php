@@ -19,10 +19,9 @@ Route::get('/myjiro', function(Request $request){
     $myjiros = App\Myjiro::all();
     return response()->json(['myjiros' => $myjiros]);
 });
-
-// Route::get('/myjiro','ShopController@getMyjiros');
-
+Route::delete('/myjiro/{myjiro}','ShopController@deleteMyjiros');
 Route::post('/myjiro','ShopController@storeMyjiros');
+
 
 
 

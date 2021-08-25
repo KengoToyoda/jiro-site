@@ -15,4 +15,17 @@ Route::get('/', function () {
     return view('shop/index');
 });
 
-Route::get('/myjiro', 'ShopController@indexMijiro');
+Route::get('/myjiro', 'ShopController@indexMyjiro');
+Route::get('/mypage', 'ShopController@indexMypage');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

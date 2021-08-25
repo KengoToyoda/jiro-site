@@ -13,3 +13,5 @@ require('./bootstrap');
  */
 
 require('./components/Myjiro');
+require('./components/Form');
+require('./components/List');

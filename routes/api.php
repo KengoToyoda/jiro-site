@@ -16,11 +16,14 @@ use App\Myjiro;
 */
 
 Route::get('/myjiro', function(Request $request){
-    $myjiros = App\Myjiro::all();
+
+    $myjiros = new Myjiro();
+    $myjiros = $myjiros->all();
     return response()->json(['myjiros' => $myjiros]);
 });
 Route::delete('/myjiro/{myjiro}','ShopController@deleteMyjiros');
-Route::post('/myjiro','ShopController@storeMyjiros');
+Route::put('/myjiro/{myjiro}', 'ShopController@storeMyjiros');
+
 
 
 

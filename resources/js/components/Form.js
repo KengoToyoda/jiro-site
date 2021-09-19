@@ -17,8 +17,16 @@ import Button from '@material-ui/core/Button';
       },
     });
 
-export const Form = ({ onAddMyjiro }) => {
+export const Form = (props) => {
     const classes = useStyles();
+    
+    //propsからの取り出し
+    const { 
+        onSetMyjiro,
+        Myjiros,
+    } = props;
+    
+    const [ShopId, setShopId] = useState('');
     const [name, setName] = useState('');
     const [image, setImage] = useState('');
     let csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
@@ -28,43 +36,51 @@ export const Form = ({ onAddMyjiro }) => {
         setName(e.target.value)
     }
     const handleSetImage = (e) => {
-        if (!e.target.files) return
+        // if (!e.target.files) return
         setImage(e.target.files[0])
     }
     
-    const handleSubmit = (csrf) => {
+    const handleSetShopId = (e) => {
+        setShopId(e.target.value)
+    }
+
+    const handleSubmit = (e) => {
         event.preventDefault();
-        const Pram = new FormData()
-        Pram.append('image', image)
-        Pram.append('name', name)
-        Pram.append('csrf', csrf)
-            
+        const Pram = new FormData();
+        Pram.append('image', image);
+        Pram.append('csrf', csrf);
+        let config = {
+          headers: {
+            'content-type': 'multipart/form-data',
+          },
+        };
+       
+        config.headers['X-HTTP-Method-Override'] = 'PUT';
+         //一旦POSTで送って上記でPUTに上書き
         axios
-        .post('/api/myjiro', Pram,
-        {
-            headers: {
-                'content-type': 'multipart/form-data',
-            },
-        })
+        .post(`/api/myjiro/${ShopId}`, Pram, config)
         .then(response => {
+            console.log(response.data)
             const myjiro = response.data
-            onAddMyjiro(myjiro);
-            // setMyjiros([...myjiros, response.data])
+            props.onSetMyjiro(myjiro);
+            alert('successful')
         })
           .catch(error => {
             console.log(error);
         });
     }
-    
-    
+
     return (
         <div>
-             <form onSubmit={handleSubmit}> 
-                <input
-                    type="name"
-                    onChange={handleChange}
-                    key="{myjiro.id}"
-                />
+            <form onSubmit={(e) => handleSubmit()}> 
+                <label>追加する店舗を選んでください</label>
+                <select value={ShopId} onChange={handleSetShopId}>
+                <option selected>店舗名</option>
+                    {props.Myjiros.map((myjiro) => (
+                            <option value={myjiro.id}>{myjiro.name}</option>
+                        ))
+                    }
+                </select>
                 <input 
                     type="file"
                     accept="image/*,.png,.jpg,.jpeg,.gif" 

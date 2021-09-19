@@ -11,6 +11,8 @@
 |
 */
 
+Route::put('/myjiro/{myjiro}','ShopController@storeMyjiros');
+
 Route::get('/', function () {
     return view('shop/index');
 });

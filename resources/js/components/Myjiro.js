@@ -11,6 +11,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
+//Material Ui Function
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -51,9 +52,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 function Myjiro() {
-     const classes = useStyles();
+    const classes = useStyles();
     const [value, setValue] = React.useState(0);
     const [myjiros, setMyjiros] = useState([]);
     const [tab, setTab] = useState('list');
@@ -64,8 +64,8 @@ function Myjiro() {
         setValue(newValue);
     };
     
-    const addMyjiro = (myjiro) => {
-        setMyjiros([...myjiros, myjiro]);
+    const setMyjiro = (myjiro) => {
+        setMyjiros(myjiro);
         setTab('list');
     }
     
@@ -84,7 +84,6 @@ function Myjiro() {
         })
     }, [])
     
-    
     return(
         <div className={classes.root}>
           <AppBar position="static">
@@ -97,7 +96,7 @@ function Myjiro() {
             <ListMyjiro myjiros={myjiros} onDeleteMyjiro={deletemyjiroFanc} />
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <Form onAddMyjiro={addMyjiro}/>
+            <Form onSetMyjiro={setMyjiro} Myjiros={myjiros} />
           </TabPanel>
         </div>
     )

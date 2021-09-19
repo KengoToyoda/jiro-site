@@ -18,8 +18,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   imageList: {
-    width: 500,
-    // height: ,
+    width: 1000,
+    // height:50 ,
+  },
+  imageListItem: {
+    width: 200,
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
@@ -28,8 +31,13 @@ const useStyles = makeStyles((theme) => ({
 
 
     
-export const ListMyjiro = ({myjiros,onDeleteMyjiro}) =>{
+export const ListMyjiro = (props) =>{
     const classes = useStyles();
+        const { 
+        onDeleteMyjiro,
+        myjiros,
+    } = props;
+    
     
     const deleteMyjiro = (id, e, csrf) => {
 
@@ -38,7 +46,7 @@ export const ListMyjiro = ({myjiros,onDeleteMyjiro}) =>{
             .delete(`/api/myjiro/${id}`,{ csrf })
             .then(response => {
                 if(response.data != null){
-                    onDeleteMyjiro(id)
+                    props.onDeleteMyjiro(id)
                     
                 }
             })
@@ -50,21 +58,15 @@ export const ListMyjiro = ({myjiros,onDeleteMyjiro}) =>{
     
     return (
         <div className={classes.root}>
-          <ImageList rowHeight={180} className={classes.imageList}>
+          <ImageList rowHeight={200} className={classes.imageList}>
             <ImageListItem key="Subheader" cols={2} style={{ height: 'auto' }}>
               <ListSubheader component="div">Myjiro</ListSubheader>
             </ImageListItem>
-            {myjiros.map((myjiro) => (
-              <ImageListItem key={myjiro.id}>
-                <img src="https://jiro-ramen2.s3.us-east-2.amazonaws.com/myjiros/hibari.jpg" alt={myjiro.name} />
+            {props.myjiros.map((myjiro) => (
+              <ImageListItem key={myjiro.id} style={{ width:200 }}>
+                <img src={'https://jiro-ramen2.s3.us-east-2.amazonaws.com/myjiros/' + myjiro.image} alt={myjiro.name} />
                 <ImageListItemBar
                   title={myjiro.name}
-                //   subtitle={}
-                  actionIcon={
-                    <IconButton aria-label={`info about ${myjiro.name}`} className={classes.icon}>
-                      <InfoIcon />
-                    </IconButton>
-                  }
                 />
               </ImageListItem>
             ))}

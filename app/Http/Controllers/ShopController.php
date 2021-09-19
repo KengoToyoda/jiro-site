@@ -28,16 +28,17 @@ class ShopController extends Controller
      */
      
     public function storeMyjiros(Request $request, Myjiro $myjiro){
-        $myjiro->name = $request->name;
         if($request->image){
+            Storage::disk('s3')->delete('myjiros/' . $myjiro->image); //元の画像を削除☆
             $photo = $request->image;
             $photo_name = $photo->getClientOriginalName();
             Storage::disk('s3')->putFileAs('myjiros',$photo,$photo_name);
             $myjiro->image = $photo_name;
         }
+        // $myjiro->name = 'あああ';
         $myjiro->save();
         $myjiros = Myjiro::all();
-        return $myjiro;
+        return $myjiros;
     }
     
     public function deleteMyjiros(Request $request, Myjiro $myjiro){
@@ -45,4 +46,9 @@ class ShopController extends Controller
         $myjiros = Myjiro::all();
         return response()->json(['myjiros' => $myjiros]);
     }
+    
+
+    
+    
+    
 }

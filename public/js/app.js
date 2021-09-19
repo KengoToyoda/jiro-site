@@ -84526,19 +84526,26 @@ var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__["ma
     padding: '0 30px'
   }
 });
-var Form = function Form(_ref) {
-  var onAddMyjiro = _ref.onAddMyjiro;
-  var classes = useStyles();
+var Form = function Form(props) {
+  var classes = useStyles(); //propsからの取り出し
+
+  var onSetMyjiro = props.onSetMyjiro,
+      Myjiros = props.Myjiros;
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
       _useState2 = _slicedToArray(_useState, 2),
-      name = _useState2[0],
-      setName = _useState2[1];
+      ShopId = _useState2[0],
+      setShopId = _useState2[1];
 
   var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
       _useState4 = _slicedToArray(_useState3, 2),
-      image = _useState4[0],
-      setImage = _useState4[1];
+      name = _useState4[0],
+      setName = _useState4[1];
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
+      _useState6 = _slicedToArray(_useState5, 2),
+      image = _useState6[0],
+      setImage = _useState6[1];
 
   var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
   var csrf = {
@@ -84550,35 +84557,50 @@ var Form = function Form(_ref) {
   };
 
   var handleSetImage = function handleSetImage(e) {
-    if (!e.target.files) return;
+    // if (!e.target.files) return
     setImage(e.target.files[0]);
   };
 
-  var handleSubmit = function handleSubmit(csrf) {
+  var handleSetShopId = function handleSetShopId(e) {
+    setShopId(e.target.value);
+  };
+
+  var handleSubmit = function handleSubmit(e) {
     event.preventDefault();
     var Pram = new FormData();
     Pram.append('image', image);
-    Pram.append('name', name);
     Pram.append('csrf', csrf);
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/myjiro', Pram, {
+    var config = {
       headers: {
         'content-type': 'multipart/form-data'
       }
-    }).then(function (response) {
+    };
+    config.headers['X-HTTP-Method-Override'] = 'PUT'; //一旦POSTで送って上記でPUTに上書き
+
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/api/myjiro/".concat(ShopId), Pram, config).then(function (response) {
+      console.log(response.data);
       var myjiro = response.data;
-      onAddMyjiro(myjiro); // setMyjiros([...myjiros, response.data])
+      props.onSetMyjiro(myjiro);
+      alert('successful');
     })["catch"](function (error) {
       console.log(error);
     });
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-    onSubmit: handleSubmit
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-    type: "name",
-    onChange: handleChange,
-    key: "{myjiro.id}"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    onSubmit: function onSubmit(e) {
+      return handleSubmit();
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "\u8FFD\u52A0\u3059\u308B\u5E97\u8217\u3092\u9078\u3093\u3067\u304F\u3060\u3055\u3044"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+    value: ShopId,
+    onChange: handleSetShopId
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    selected: true
+  }, "\u5E97\u8217\u540D"), props.Myjiros.map(function (myjiro) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      value: myjiro.id
+    }, myjiro.name);
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     type: "file",
     accept: "image/*,.png,.jpg,.jpeg,.gif",
     onChange: function onChange(e) {
@@ -84637,18 +84659,21 @@ var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__["ma
       backgroundColor: theme.palette.background.paper
     },
     imageList: {
-      width: 500 // height: ,
+      width: 1000 // height:50 ,
 
+    },
+    imageListItem: {
+      width: 200
     },
     icon: {
       color: 'rgba(255, 255, 255, 0.54)'
     }
   };
 });
-var ListMyjiro = function ListMyjiro(_ref) {
-  var myjiros = _ref.myjiros,
-      onDeleteMyjiro = _ref.onDeleteMyjiro;
+var ListMyjiro = function ListMyjiro(props) {
   var classes = useStyles();
+  var onDeleteMyjiro = props.onDeleteMyjiro,
+      myjiros = props.myjiros;
 
   var deleteMyjiro = function deleteMyjiro(id, e, csrf) {
     if (window.confirm('Are you sure delete')) {
@@ -84656,7 +84681,7 @@ var ListMyjiro = function ListMyjiro(_ref) {
         csrf: csrf
       }).then(function (response) {
         if (response.data != null) {
-          onDeleteMyjiro(id);
+          props.onDeleteMyjiro(id);
         }
       })["catch"](function (error) {
         console.log(error);
@@ -84667,7 +84692,7 @@ var ListMyjiro = function ListMyjiro(_ref) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: classes.root
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ImageList__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    rowHeight: 180,
+    rowHeight: 200,
     className: classes.imageList
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ImageListItem__WEBPACK_IMPORTED_MODULE_5__["default"], {
     key: "Subheader",
@@ -84677,19 +84702,17 @@ var ListMyjiro = function ListMyjiro(_ref) {
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListSubheader__WEBPACK_IMPORTED_MODULE_7__["default"], {
     component: "div"
-  }, "Myjiro")), myjiros.map(function (myjiro) {
+  }, "Myjiro")), props.myjiros.map(function (myjiro) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ImageListItem__WEBPACK_IMPORTED_MODULE_5__["default"], {
-      key: myjiro.id
+      key: myjiro.id,
+      style: {
+        width: 200
+      }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-      src: "https://jiro-ramen2.s3.us-east-2.amazonaws.com/myjiros/hibari.jpg",
+      src: 'https://jiro-ramen2.s3.us-east-2.amazonaws.com/myjiros/' + myjiro.image,
       alt: myjiro.name
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ImageListItemBar__WEBPACK_IMPORTED_MODULE_6__["default"], {
-      title: myjiro.name //   subtitle={}
-      ,
-      actionIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_8__["default"], {
-        "aria-label": "info about ".concat(myjiro.name),
-        className: classes.icon
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Info__WEBPACK_IMPORTED_MODULE_9___default.a, null))
+      title: myjiro.name
     }));
   })));
 };
@@ -84723,14 +84746,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_Box__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @material-ui/core/Box */ "./node_modules/@material-ui/core/esm/Box/index.js");
 var _excluded = ["children", "value", "index"];
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -84760,7 +84775,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 
 
-
+ //Material Ui Function
 
 function TabPanel(props) {
   var children = props.children,
@@ -84827,8 +84842,8 @@ function Myjiro() {
     setValue(newValue);
   };
 
-  var addMyjiro = function addMyjiro(myjiro) {
-    setMyjiros([].concat(_toConsumableArray(myjiros), [myjiro]));
+  var setMyjiro = function setMyjiro(myjiro) {
+    setMyjiros(myjiro);
     setTab('list');
   };
 
@@ -84867,7 +84882,8 @@ function Myjiro() {
     value: value,
     index: 1
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Form__WEBPACK_IMPORTED_MODULE_3__["Form"], {
-    onAddMyjiro: addMyjiro
+    onSetMyjiro: setMyjiro,
+    Myjiros: myjiros
   })));
 }
 

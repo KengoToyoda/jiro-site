@@ -12,6 +12,9 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-require('./components/Myjiro');
-require('./components/Form');
-require('./components/List');
+require('./components/Quiz/Quiz');
+require('./components/Quiz/List');
+require('./components/Myjiro/Myjiro');
+require('./components/Myjiro/Form');
+require('./components/Myjiro/List');
+

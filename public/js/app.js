@@ -84426,11 +84426,15 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
  */
 
 
-__webpack_require__(/*! ./components/Myjiro */ "./resources/js/components/Myjiro.js");
+__webpack_require__(/*! ./components/Quiz/Quiz */ "./resources/js/components/Quiz/Quiz.js");
 
-__webpack_require__(/*! ./components/Form */ "./resources/js/components/Form.js");
+__webpack_require__(/*! ./components/Quiz/List */ "./resources/js/components/Quiz/List.js");
 
-__webpack_require__(/*! ./components/List */ "./resources/js/components/List.js");
+__webpack_require__(/*! ./components/Myjiro/Myjiro */ "./resources/js/components/Myjiro/Myjiro.js");
+
+__webpack_require__(/*! ./components/Myjiro/Form */ "./resources/js/components/Myjiro/Form.js");
+
+__webpack_require__(/*! ./components/Myjiro/List */ "./resources/js/components/Myjiro/List.js");
 
 /***/ }),
 
@@ -84479,10 +84483,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
-/***/ "./resources/js/components/Form.js":
-/*!*****************************************!*\
-  !*** ./resources/js/components/Form.js ***!
-  \*****************************************/
+/***/ "./resources/js/components/Myjiro/Form.js":
+/*!************************************************!*\
+  !*** ./resources/js/components/Myjiro/Form.js ***!
+  \************************************************/
 /*! exports provided: Form */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -84577,8 +84581,7 @@ var Form = function Form(props) {
     };
     config.headers['X-HTTP-Method-Override'] = 'PUT'; //一旦POSTで送って上記でPUTに上書き
 
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/api/myjiro/".concat(ShopId), Pram, config).then(function (response) {
-      console.log(response.data);
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/myjiro/".concat(ShopId), Pram, config).then(function (response) {
       var myjiro = response.data;
       props.onSetMyjiro(myjiro);
       alert('successful');
@@ -84615,10 +84618,10 @@ var Form = function Form(props) {
 
 /***/ }),
 
-/***/ "./resources/js/components/List.js":
-/*!*****************************************!*\
-  !*** ./resources/js/components/List.js ***!
-  \*****************************************/
+/***/ "./resources/js/components/Myjiro/List.js":
+/*!************************************************!*\
+  !*** ./resources/js/components/Myjiro/List.js ***!
+  \************************************************/
 /*! exports provided: ListMyjiro */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -84673,11 +84676,12 @@ var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__["ma
 var ListMyjiro = function ListMyjiro(props) {
   var classes = useStyles();
   var onDeleteMyjiro = props.onDeleteMyjiro,
-      myjiros = props.myjiros;
+      myjiros = props.myjiros,
+      notMyjiros = props.notMyjiros;
 
   var deleteMyjiro = function deleteMyjiro(id, e, csrf) {
     if (window.confirm('Are you sure delete')) {
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a["delete"]("/api/myjiro/".concat(id), {
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a["delete"]("/myjiro/".concat(id), {
         csrf: csrf
       }).then(function (response) {
         if (response.data != null) {
@@ -84714,16 +84718,28 @@ var ListMyjiro = function ListMyjiro(props) {
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ImageListItemBar__WEBPACK_IMPORTED_MODULE_6__["default"], {
       title: myjiro.name
     }));
+  }), props.notMyjiros.map(function (notMyjiro) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ImageListItem__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      key: notMyjiro.id,
+      style: {
+        width: 200
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      src: 'https://jiro-ramen2.s3.us-east-2.amazonaws.com/myjiros/' + notMyjiro.image,
+      alt: notMyjiro.name
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ImageListItemBar__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      title: notMyjiro.name
+    }));
   })));
 };
 
 /***/ }),
 
-/***/ "./resources/js/components/Myjiro.js":
-/*!*******************************************!*\
-  !*** ./resources/js/components/Myjiro.js ***!
-  \*******************************************/
-/*! no exports provided */
+/***/ "./resources/js/components/Myjiro/Myjiro.js":
+/*!**************************************************!*\
+  !*** ./resources/js/components/Myjiro/Myjiro.js ***!
+  \**************************************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -84734,8 +84750,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Form */ "./resources/js/components/Form.js");
-/* harmony import */ var _List__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./List */ "./resources/js/components/List.js");
+/* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Form */ "./resources/js/components/Myjiro/Form.js");
+/* harmony import */ var _List__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./List */ "./resources/js/components/Myjiro/List.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
@@ -84828,10 +84844,15 @@ function Myjiro() {
       myjiros = _useState2[0],
       setMyjiros = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('list'),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState4 = _slicedToArray(_useState3, 2),
-      tab = _useState4[0],
-      setTab = _useState4[1];
+      notMyjiros = _useState4[0],
+      setNotMyjiros = _useState4[1];
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('list'),
+      _useState6 = _slicedToArray(_useState5, 2),
+      tab = _useState6[0],
+      setTab = _useState6[1];
 
   var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
   var csrf = {
@@ -84854,8 +84875,11 @@ function Myjiro() {
   };
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/myjiro').then(function (response) {
-      setMyjiros(response.data.myjiros);
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/myjiro').then(function (response) {
+      setMyjiros(response.data.myjiros); // console.log(response.data.notMyjiros);
+      // console.log(response.data.myjiros);
+
+      setNotMyjiros(response.data.notMyjiros);
     })["catch"](function (error) {
       console.log(error);
     });
@@ -84877,6 +84901,7 @@ function Myjiro() {
     index: 0
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_List__WEBPACK_IMPORTED_MODULE_4__["ListMyjiro"], {
     myjiros: myjiros,
+    notMyjiros: notMyjiros,
     onDeleteMyjiro: deletemyjiroFanc
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TabPanel, {
     value: value,
@@ -84887,7 +84912,117 @@ function Myjiro() {
   })));
 }
 
-react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Myjiro, null), document.getElementById('myjiro'));
+/* harmony default export */ __webpack_exports__["default"] = (Myjiro);
+
+if (document.getElementById('myjiro')) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Myjiro, null), document.getElementById('myjiro'));
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/Quiz/List.js":
+/*!**********************************************!*\
+  !*** ./resources/js/components/Quiz/List.js ***!
+  \**********************************************/
+/*! exports provided: ListQuiz */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ListQuiz", function() { return ListQuiz; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
+
+
+
+
+var ListQuiz = function ListQuiz(props) {
+  var quizzes = props.quizzes;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, props.quizzes.map(function (quiz) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      key: quiz.id
+    }, quiz.question);
+  }));
+};
+
+/***/ }),
+
+/***/ "./resources/js/components/Quiz/Quiz.js":
+/*!**********************************************!*\
+  !*** ./resources/js/components/Quiz/Quiz.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _List__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./List */ "./resources/js/components/Quiz/List.js");
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
+/* harmony import */ var _material_ui_core_AppBar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/AppBar */ "./node_modules/@material-ui/core/esm/AppBar/index.js");
+/* harmony import */ var _material_ui_core_Tabs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/core/Tabs */ "./node_modules/@material-ui/core/esm/Tabs/index.js");
+/* harmony import */ var _material_ui_core_Tab__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/core/Tab */ "./node_modules/@material-ui/core/esm/Tab/index.js");
+/* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/core/Typography */ "./node_modules/@material-ui/core/esm/Typography/index.js");
+/* harmony import */ var _material_ui_core_Box__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @material-ui/core/Box */ "./node_modules/@material-ui/core/esm/Box/index.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+function Quiz() {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      quizzes = _useState2[0],
+      setQuizzes = _useState2[1];
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/quiz/fetch').then(function (response) {
+      setQuizzes(response.data);
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_List__WEBPACK_IMPORTED_MODULE_4__["ListQuiz"], {
+    quizzes: quizzes
+  }));
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Quiz);
+
+if (document.getElementById('quiz')) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Quiz, null), document.getElementById('quiz'));
+}
 
 /***/ }),
 

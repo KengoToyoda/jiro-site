@@ -1,6 +1,43 @@
-.nav{
-     a{
-        text-decoration:none;
+/*ーーーーーーーーーーーーー
+ *      変数定義
+ ーーーーーーーーーーーーー*/
+$breakpoint-pc: 768px;
+
+/*ーーーーーーーーーーーーー
+ *      関数定義
+ ーーーーーーーーーーーーー*/
+ 
+/* $break-point以上の時に@contentを適用 */
+@mixin min-screen($break-point) { 
+  @media screen and (min-width: $break-point) {
+    @content;
+  }
+}
+
+
+header{
+  padding:20px 0;
+  text-align: center;
+  font-size: 20px;
+  background-color: #ffffff;
+  
+  ul{
+        display: flex;
+        justify-content:space-around;
+        list-style: none;
+        
+        li {
+            list-style:none;    
+        }
+  }
+}
+.nav-link{
+  color: #444;
+  text-decoration:none;
+}
+
+.col-md-8{
+    @include min-screen($breakpoint-pc){
+        width:100%!important;
     }
-    
 }

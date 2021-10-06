@@ -10,24 +10,23 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::put('/myjiro/{myjiro}','ShopController@storeMyjiros');
-
-Route::get('/', function () {
-    return view('shop/index');
-});
-
-Route::get('/myjiro', 'ShopController@indexMyjiro');
-Route::get('/mypage', 'ShopController@indexMypage');
-
 Auth::routes();
-
+Route::get('/', 'ShopController@index')->middleware('auth');
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
+Route::get('/myjiro', 'ShopController@fetchMyjiros');
+Route::put('/myjiro/{myjiro}', 'ShopController@storeMyjiros');
+Route::delete('/myjiro/{myjiro}','ShopController@deleteMyjiros');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/quiz', 'QuizController@index');
+Route::get('/quiz/fetch', 'QuizController@fetch');
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+
+
+
+
+

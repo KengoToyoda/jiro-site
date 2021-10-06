@@ -36,4 +36,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    public function myjiros(){
+        return $this->hasMany('App\Myjiro');
+    }
+    public function quizzes(){
+        return $this->hasMany('App\Quiz');
+    }
 }

@@ -1,4 +1,29 @@
-.nav a {
+@charset "UTF-8";
+/*ーーーーーーーーーーーーー
+ *      変数定義
+ ーーーーーーーーーーーーー*/
+/*ーーーーーーーーーーーーー
+ *      関数定義
+ ーーーーーーーーーーーーー*/
+/* $break-point以上の時に@contentを適用 */
+header {
+  padding: 20px 0;
+  text-align: center;
+  font-size: 20px;
+  background-color: #ffffff; }
+  header ul {
+    display: flex;
+    justify-content: space-around;
+    list-style: none; }
+    header ul li {
+      list-style: none; }
+
+.nav-link {
+  color: #444;
   text-decoration: none; }
+
+@media screen and (min-width: 768px) {
+  .col-md-8 {
+    width: 100% !important; } }
 
 /*# sourceMappingURL=style.css.map */

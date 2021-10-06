@@ -23,6 +23,7 @@ class MyjirosTableSeeder extends Seeder
         foreach($myjiros as $myjiro){
             DB::table('myjiros')->insert([
                 'name' => $myjiro,
+                'image' => 'jiro-default.png' 
             ]);
         }
         

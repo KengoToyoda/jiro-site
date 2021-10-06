@@ -36,6 +36,7 @@ export const ListMyjiro = (props) =>{
         const { 
         onDeleteMyjiro,
         myjiros,
+        notMyjiros,
     } = props;
     
     
@@ -43,7 +44,7 @@ export const ListMyjiro = (props) =>{
 
         if(window.confirm('Are you sure delete')){
             axios
-            .delete(`/api/myjiro/${id}`,{ csrf })
+            .delete(`/myjiro/${id}`,{ csrf })
             .then(response => {
                 if(response.data != null){
                     props.onDeleteMyjiro(id)
@@ -67,6 +68,14 @@ export const ListMyjiro = (props) =>{
                 <img src={'https://jiro-ramen2.s3.us-east-2.amazonaws.com/myjiros/' + myjiro.image} alt={myjiro.name} />
                 <ImageListItemBar
                   title={myjiro.name}
+                />
+              </ImageListItem>
+            ))}
+            {props.notMyjiros.map((notMyjiro) => (
+              <ImageListItem key={notMyjiro.id} style={{ width:200 }}>
+                <img src={'https://jiro-ramen2.s3.us-east-2.amazonaws.com/myjiros/' + notMyjiro.image} alt={notMyjiro.name} />
+                <ImageListItemBar
+                  title={notMyjiro.name}
                 />
               </ImageListItem>
             ))}

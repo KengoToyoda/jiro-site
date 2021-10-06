@@ -5,7 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="">
-                <div id="myjiro"></div>
+                <h1>クイズ一覧</h1>
+                <div id="quiz"></div>
             </div>
             </div>
         </div>

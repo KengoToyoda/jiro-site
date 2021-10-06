@@ -15,17 +15,3 @@ use App\Myjiro;
 |
 */
 
-Route::get('/myjiro', function(Request $request){
-
-    $myjiros = new Myjiro();
-    $myjiros = $myjiros->all();
-    return response()->json(['myjiros' => $myjiros]);
-});
-Route::delete('/myjiro/{myjiro}','ShopController@deleteMyjiros');
-Route::put('/myjiro/{myjiro}', 'ShopController@storeMyjiros');
-
-
-
-
-
-

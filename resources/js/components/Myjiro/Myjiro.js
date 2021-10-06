@@ -56,6 +56,7 @@ function Myjiro() {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
     const [myjiros, setMyjiros] = useState([]);
+    const [notMyjiros, setNotMyjiros] = useState([]);
     const [tab, setTab] = useState('list');
     let csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
     const csrf  = { csrf_token: csrf_token }
@@ -75,9 +76,12 @@ function Myjiro() {
 
     useEffect(() => {
         axios
-        .get('/api/myjiro')
+        .get('/myjiro')
         .then(response => {
             setMyjiros(response.data.myjiros);
+            // console.log(response.data.notMyjiros);
+            // console.log(response.data.myjiros);
+            setNotMyjiros(response.data.notMyjiros);
         })
         .catch(error => {
             console.log(error);
@@ -93,7 +97,7 @@ function Myjiro() {
             </Tabs>
           </AppBar>
           <TabPanel value={value} index={0}>
-            <ListMyjiro myjiros={myjiros} onDeleteMyjiro={deletemyjiroFanc} />
+            <ListMyjiro myjiros={myjiros} notMyjiros={notMyjiros} onDeleteMyjiro={deletemyjiroFanc} />
           </TabPanel>
           <TabPanel value={value} index={1}>
             <Form onSetMyjiro={setMyjiro} Myjiros={myjiros} />
@@ -101,5 +105,8 @@ function Myjiro() {
         </div>
     )
 }
+export default Myjiro;
 
-ReactDOM.render(<Myjiro />, document.getElementById('myjiro'));
+if (document.getElementById('myjiro')) {
+  ReactDOM.render(<Myjiro />, document.getElementById('myjiro'));
+}

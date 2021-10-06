@@ -15,6 +15,7 @@ class CreateMyjirosTable extends Migration
     {
         Schema::create('myjiros', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('user_id')->unsigned()->nullable();
             $table->string('name')->nullable();
             $table->string('image')->index('index_image')->nullable();
             $table->timestamps();

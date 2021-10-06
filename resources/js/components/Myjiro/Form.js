@@ -58,9 +58,8 @@ export const Form = (props) => {
         config.headers['X-HTTP-Method-Override'] = 'PUT';
          //一旦POSTで送って上記でPUTに上書き
         axios
-        .post(`/api/myjiro/${ShopId}`, Pram, config)
+        .post(`/myjiro/${ShopId}`, Pram, config)
         .then(response => {
-            console.log(response.data)
             const myjiro = response.data
             props.onSetMyjiro(myjiro);
             alert('successful')

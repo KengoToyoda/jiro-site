@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { ListQuiz } from './List';
+import { QuestionCard } from './QuestionCard';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -12,7 +12,7 @@ import Box from '@material-ui/core/Box';
 
 function Quiz() {
     const [quizzes, setQuizzes] = useState([]);
-
+    
     useEffect(() => {
         axios
         .get('/quiz/fetch')
@@ -24,9 +24,12 @@ function Quiz() {
         })
     }, [])
     
+    console.log(quizzes);
+
+    
     return(
         <div>
-            <ListQuiz quizzes={quizzes} />
+            <QuestionCard quizzes={quizzes} />
         </div>
     )
 }

@@ -15,6 +15,9 @@ class QuizController extends Controller
     public function fetch(Quiz $quiz){
         $user = Auth::user();
         $quizzes = $user->quizzes()->get();
-        return response()->json($quizzes);
+        foreach($quizzes as $quiz){
+            $questions = $quiz->with('questions')->get();
+        }
+        return response()->json($questions);
     }
 }

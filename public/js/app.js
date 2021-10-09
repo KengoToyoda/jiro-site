@@ -84428,7 +84428,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./components/Quiz/Quiz */ "./resources/js/components/Quiz/Quiz.js");
 
-__webpack_require__(/*! ./components/Quiz/List */ "./resources/js/components/Quiz/List.js");
+__webpack_require__(/*! ./components/Quiz/QuestionCard */ "./resources/js/components/Quiz/QuestionCard.js");
 
 __webpack_require__(/*! ./components/Myjiro/Myjiro */ "./resources/js/components/Myjiro/Myjiro.js");
 
@@ -84706,7 +84706,7 @@ var ListMyjiro = function ListMyjiro(props) {
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListSubheader__WEBPACK_IMPORTED_MODULE_7__["default"], {
     component: "div"
-  }, "Myjiro")), props.myjiros.map(function (myjiro) {
+  }, "Myjiro")), myjiros.map(function (myjiro) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ImageListItem__WEBPACK_IMPORTED_MODULE_5__["default"], {
       key: myjiro.id,
       style: {
@@ -84718,7 +84718,7 @@ var ListMyjiro = function ListMyjiro(props) {
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ImageListItemBar__WEBPACK_IMPORTED_MODULE_6__["default"], {
       title: myjiro.name
     }));
-  }), props.notMyjiros.map(function (notMyjiro) {
+  }), notMyjiros.map(function (notMyjiro) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ImageListItem__WEBPACK_IMPORTED_MODULE_5__["default"], {
       key: notMyjiro.id,
       style: {
@@ -84920,16 +84920,62 @@ if (document.getElementById('myjiro')) {
 
 /***/ }),
 
-/***/ "./resources/js/components/Quiz/List.js":
-/*!**********************************************!*\
-  !*** ./resources/js/components/Quiz/List.js ***!
-  \**********************************************/
-/*! exports provided: ListQuiz */
+/***/ "./resources/js/components/Quiz/QuestionCard.js":
+/*!******************************************************!*\
+  !*** ./resources/js/components/Quiz/QuestionCard.js ***!
+  \******************************************************/
+/*! exports provided: QuestionCard */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ListQuiz", function() { return ListQuiz; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QuestionCard", function() { return QuestionCard; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
+/* harmony import */ var _QuestionItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./QuestionItem */ "./resources/js/components/Quiz/QuestionItem.js");
+
+
+
+
+
+var QuestionCard = function QuestionCard(props) {
+  // const { 
+  //     quizzes,
+  // } = props;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "q-secion"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "q-count"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Question 1"), "/", props.quizzes.length)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "q-text"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "a-section"
+  }, props.quizzes.map(function (quiz) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_QuestionItem__WEBPACK_IMPORTED_MODULE_4__["QuestionItem"], {
+      question: quiz.question,
+      questions: quiz.questions,
+      key: quiz.id
+    });
+  })));
+};
+
+/***/ }),
+
+/***/ "./resources/js/components/Quiz/QuestionDetail.js":
+/*!********************************************************!*\
+  !*** ./resources/js/components/Quiz/QuestionDetail.js ***!
+  \********************************************************/
+/*! exports provided: QuestionDetail */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QuestionDetail", function() { return QuestionDetail; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
@@ -84941,13 +84987,56 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var ListQuiz = function ListQuiz(props) {
-  var quizzes = props.quizzes;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, props.quizzes.map(function (quiz) {
+var QuestionDetail = function QuestionDetail(props) {
+  var answerOption = '';
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "radio",
+    name: answerOption
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, props.answerText));
+};
+
+/***/ }),
+
+/***/ "./resources/js/components/Quiz/QuestionItem.js":
+/*!******************************************************!*\
+  !*** ./resources/js/components/Quiz/QuestionItem.js ***!
+  \******************************************************/
+/*! exports provided: QuestionItem */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QuestionItem", function() { return QuestionItem; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
+/* harmony import */ var _QuestionDetail__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./QuestionDetail */ "./resources/js/components/Quiz/QuestionDetail.js");
+
+
+
+
+
+var QuestionItem = function QuestionItem(props) {
+  // const { 
+  //     questions,
+  // } = props;
+  console.log(props.questions);
+  var answerName = 'answerName';
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, props.question), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    className: ""
+  }, props.questions.map(function (question) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      key: quiz.id
-    }, quiz.question);
-  }));
+      key: question.id
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      key: question.id,
+      type: "radio",
+      name: answerName
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, question.answerText));
+  })));
 };
 
 /***/ }),
@@ -84969,7 +85058,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _List__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./List */ "./resources/js/components/Quiz/List.js");
+/* harmony import */ var _QuestionCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./QuestionCard */ "./resources/js/components/Quiz/QuestionCard.js");
 /* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
 /* harmony import */ var _material_ui_core_AppBar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/AppBar */ "./node_modules/@material-ui/core/esm/AppBar/index.js");
 /* harmony import */ var _material_ui_core_Tabs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/core/Tabs */ "./node_modules/@material-ui/core/esm/Tabs/index.js");
@@ -85013,7 +85102,8 @@ function Quiz() {
       console.log(error);
     });
   }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_List__WEBPACK_IMPORTED_MODULE_4__["ListQuiz"], {
+  console.log(quizzes);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_QuestionCard__WEBPACK_IMPORTED_MODULE_4__["QuestionCard"], {
     quizzes: quizzes
   }));
 }

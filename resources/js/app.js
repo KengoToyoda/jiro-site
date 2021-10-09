@@ -13,7 +13,7 @@ require('./bootstrap');
  */
 
 require('./components/Quiz/Quiz');
-require('./components/Quiz/List');
+require('./components/Quiz/QuestionCard');
 require('./components/Myjiro/Myjiro');
 require('./components/Myjiro/Form');
 require('./components/Myjiro/List');

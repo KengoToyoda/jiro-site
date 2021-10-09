@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MyjirosTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(QuizzesTableSeeder::class);
+        $this->call(QuestionsTableSeeder::class);
     }
 }

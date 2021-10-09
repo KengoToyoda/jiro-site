@@ -48,7 +48,6 @@ export const ListMyjiro = (props) =>{
             .then(response => {
                 if(response.data != null){
                     props.onDeleteMyjiro(id)
-                    
                 }
             })
             .catch(error => {
@@ -63,7 +62,7 @@ export const ListMyjiro = (props) =>{
             <ImageListItem key="Subheader" cols={2} style={{ height: 'auto' }}>
               <ListSubheader component="div">Myjiro</ListSubheader>
             </ImageListItem>
-            {props.myjiros.map((myjiro) => (
+            {myjiros.map((myjiro) => (
               <ImageListItem key={myjiro.id} style={{ width:200 }}>
                 <img src={'https://jiro-ramen2.s3.us-east-2.amazonaws.com/myjiros/' + myjiro.image} alt={myjiro.name} />
                 <ImageListItemBar
@@ -71,7 +70,7 @@ export const ListMyjiro = (props) =>{
                 />
               </ImageListItem>
             ))}
-            {props.notMyjiros.map((notMyjiro) => (
+            {notMyjiros.map((notMyjiro) => (
               <ImageListItem key={notMyjiro.id} style={{ width:200 }}>
                 <img src={'https://jiro-ramen2.s3.us-east-2.amazonaws.com/myjiros/' + notMyjiro.image} alt={notMyjiro.name} />
                 <ImageListItemBar

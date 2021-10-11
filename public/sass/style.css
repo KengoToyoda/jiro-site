@@ -26,4 +26,7 @@ header {
   .col-md-8 {
     width: 100% !important; } }
 
+.css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked {
+  color: #ffee58 !important; }
+
 /*# sourceMappingURL=style.css.map */

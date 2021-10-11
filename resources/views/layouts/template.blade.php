@@ -8,12 +8,11 @@
         <meta name="keywords" content="@yield('keywords')">
         
         <!-- Styles -->
-        <!--<link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">-->
-        <!-- Reset.css読み込み -->
-        <!--<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">-->
         <link href="{{ asset('css/common.css') }}" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
         
         <!--style.scssのコンパイル先-->
         <link href="{{ asset('sass/style.css') }}" rel="stylesheet" >

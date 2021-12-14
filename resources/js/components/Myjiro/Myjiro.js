@@ -57,7 +57,6 @@ function Myjiro() {
     const [value, setValue] = React.useState(0);
     const [myjiros, setMyjiros] = useState([]);
     const [notMyjiros, setNotMyjiros] = useState([]);
-    const [tab, setTab] = useState('list');
     let csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
     const csrf  = { csrf_token: csrf_token }
     
@@ -67,7 +66,6 @@ function Myjiro() {
     
     const setMyjiro = (myjiro) => {
         setMyjiros(myjiro);
-        setTab('list');
     }
     
     const deletemyjiroFanc = (id) => {

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { QuestionCard } from './QuestionCard';
 import { QuizAddModal } from './QuizAddModal';
 
-function Quiz() {
+function Quiz(){
     const [quizzes, setQuizzes] = useState([]);
     
     useEffect(() => {
@@ -25,7 +25,7 @@ function Quiz() {
         </div>
     )
 }
-export default Quiz;
+// export default Quiz;
 
 if (document.getElementById('quiz')) {
     ReactDOM.render(<Quiz />, document.getElementById('quiz'));

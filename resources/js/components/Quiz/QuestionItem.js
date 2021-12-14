@@ -31,7 +31,6 @@ export const QuestionItem = (props) =>{
   const StyledFormControl = styled(FormControl)`
     width: 100%;
     margin: 0!important;
-    
   `;  
 
   const handleSubmit = (event) => {

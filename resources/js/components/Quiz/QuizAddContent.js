@@ -1,115 +1,75 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import styled from 'styled-components'
+import { Choice } from './FormParts/Choice';
+import { Image } from './FormParts/Image';
+import { Title } from './FormParts/Title';
+import { Button } from './FormParts/Button';
+import Container from '@mui/material/Container';
+import { useForm } from 'react-hook-form';
 
-const steps = ['Please create a question statement', 'Create a choice', 'Please check question'];
-
-export const QuizAddContent = () => {
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set());
-
-  const isStepOptional = (step) => {
-    return step === 1;
-  };
-
-  const isStepSkipped = (step) => {
-    return skipped.has(step);
-  };
-
-  const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
-    }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
-      throw new Error("You can't skip a step that isn't optional.");
-    }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
-  };
-
+const ChoiceContainer = styled(Container)`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0;
+`;
+  
+export const QuizAddContent = (props) => {
+  const choices = ['答えを追加1', '答えを追加2', '答えを追加3', '答えを追加4'];
+  const [title, setTitle] = useState('');
+  const [quizImage, setQuizImage] = useState('');
+  const [ansewer, setAnsewer] = useState('');
+  const [choiceInput, setChoiceInput] = useState([]);
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const onSubmit = data => console.log(data);
+  
+  
+  // const handleSubmit = (e) => {
+  //       event.preventDefault();
+  //       const Pram = new FormData();
+  //       // Pram.append('image', image);
+  //       // Pram.append('csrf', csrf);
+  //       let config = {
+  //         headers: {
+  //           'content-type': 'multipart/form-data',
+  //         },
+  //       };
+       
+  //       config.headers['X-HTTP-Method-Override'] = 'PUT';
+  //       //一旦POSTで送って上記でPUTに上書き
+  //       axios
+  //       .post()
+  //       .then(response => {
+  //           const myjiro = response.data
+  //           // props.onSetMyjiro(myjiro);
+  //           alert('successful')
+  //       })
+  //         .catch(error => {
+  //           console.log(error);
+  //       });
+  //   }
+  
+  // console.log(title);
   return (
-    <Box sx={{ width: '100%' }}>
-      <Stepper activeStep={activeStep}>
-        {steps.map((label, index) => {
-          const stepProps = {};
-          const labelProps = {};
-          if (isStepOptional(index)) {
-            labelProps.optional = (
-              <Typography variant="caption">Optional</Typography>
-            );
+    <div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Title register={register}/>
+        <Image register={register}/>
+        <ChoiceContainer>
+          { choices.map((choice, index) => (
+            <Choice 
+              placeholderName={choice} 
+              key={index} 
+              AnswerNum={index} 
+              onSetChoiceInput={setChoiceInput}
+              onSetAnswer={setAnsewer}
+            />
+            ))
           }
-          if (isStepSkipped(index)) {
-            stepProps.completed = false;
-          }
-          return (
-            <Step key={label} {...stepProps}>
-              <StepLabel {...labelProps}>{label}</StepLabel>
-            </Step>
-          );
-        })}
-      </Stepper>
-      {activeStep === steps.length ? (
-        <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>
-            All steps completed - you&apos;re finished
-          </Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-            <Box sx={{ flex: '1 1 auto' }} />
-            <Button onClick={handleReset}>Reset</Button>
-          </Box>
-        </React.Fragment>
-      ) : (
-        <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-            <Button
-              color="inherit"
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              sx={{ mr: 1 }}
-            >
-              Back
-            </Button>
-            <Box sx={{ flex: '1 1 auto' }} />
-            {isStepOptional(activeStep) && (
-              <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                Skip
-              </Button>
-            )}
-
-            <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? 'Create' : 'Next'}
-            </Button>
-          </Box>
-        </React.Fragment>
-      )}
-    </Box>
-  );
+        </ChoiceContainer>
+        <Button />
+      </form>
+    </div>
+  )
 }

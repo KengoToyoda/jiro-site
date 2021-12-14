@@ -20,12 +20,6 @@ import Button from '@material-ui/core/Button';
 export const Form = (props) => {
     const classes = useStyles();
     
-    //propsからの取り出し
-    const { 
-        onSetMyjiro,
-        Myjiros,
-    } = props;
-    
     const [ShopId, setShopId] = useState('');
     const [name, setName] = useState('');
     const [image, setImage] = useState('');
